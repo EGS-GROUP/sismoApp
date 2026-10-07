@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { X, Globe, MapPin, Radio, LayoutDashboard, ExternalLink, Mountain, Layers, Satellite, Heart } from '@lucide/svelte';
+	import { X, Globe, MapPin, Radio, LayoutDashboard, Mountain, Layers, Satellite } from '@lucide/svelte';
 
 	let { show = false, onClose }: { show?: boolean; onClose?: () => void } = $props();
 	let manualTab = $state('intro');
@@ -19,8 +19,6 @@
 					<button class="tab-btn {manualTab === 'features' ? 'active' : ''}" onclick={() => manualTab = 'features'}>Funciones</button>
 					<button class="tab-btn {manualTab === 'geospatial' ? 'active' : ''}" onclick={() => manualTab = 'geospatial'}>Contexto Geoespacial</button>
 					<button class="tab-btn {manualTab === 'dashboard' ? 'active' : ''}" onclick={() => manualTab = 'dashboard'}>Dashboard</button>
-					<button class="tab-btn {manualTab === 'credits' ? 'active' : ''}" onclick={() => manualTab = 'credits'}>Créditos</button>
-					<button class="tab-btn {manualTab === 'donations' ? 'active' : ''}" onclick={() => manualTab = 'donations'}>Donaciones</button>
 				</div>
 
 				<div style="color: var(--text-primary); font-size: 15px; line-height: 1.6; padding-bottom: 20px; min-height: 250px;">
@@ -66,67 +64,6 @@
 							<li style="margin-bottom: 8px;"><strong>Panel Inferior:</strong> Cuatro gráficos en tiempo real: línea temporal, distribución de magnitud, perfil de profundidad y energía acumulada.</li>
 							<li style="margin-bottom: 8px;"><strong>Navegación Móvil:</strong> Bottom-nav con tres pestañas: Sismos, Mapa, Info/TV.</li>
 						</ul>
-					{/if}
-
-					{#if manualTab === 'credits'}
-						<h3 style="color: var(--text-primary); margin-bottom: 16px; font-weight: 600;">Desarrollo y Plataforma</h3>
-						<ul style="list-style-type: none; padding-left: 0; margin-bottom: 24px;">
-							<li>
-								<strong style="color: var(--text-primary); font-size: 16px;">JAG-MEDIA SERVICIOS, C.A.</strong><br>
-								<a href="https://jagmedia.com.ve" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;"><ExternalLink size={12} /> jagmedia.com.ve</a>
-							</li>
-						</ul>
-
-						<h3 style="color: var(--text-primary); margin-bottom: 16px; font-weight: 600;">Instituciones y Fuentes de Datos</h3>
-						<ul style="list-style-type: none; padding-left: 0; margin-bottom: 20px; display: flex; flex-direction: column; gap: 16px;">
-							<li>
-								<strong style="color: var(--text-primary);">FUNVISIS</strong> - Fundación Venezolana de Investigaciones Sismológicas<br>
-								<a href="http://www.funvisis.gob.ve/" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;"><ExternalLink size={12} /> funvisis.gob.ve</a>
-							</li>
-							<li>
-								<strong style="color: var(--text-primary);">USGS</strong> - Servicio Geológico de los Estados Unidos<br>
-								<a href="https://earthquake.usgs.gov/" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;"><ExternalLink size={12} /> earthquake.usgs.gov</a>
-							</li>
-							<li>
-								<strong style="color: var(--text-primary);">EMSC</strong> - Centro Sismológico Euromediterráneo<br>
-								<a href="https://www.emsc-csem.org/" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;"><ExternalLink size={12} /> emsc-csem.org</a>
-							</li>
-							<li>
-								<strong style="color: var(--text-primary);">CSN</strong> - Centro Sismológico Nacional (Chile)<br>
-								<a href="https://sismologia.cl/" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;"><ExternalLink size={12} /> sismologia.cl</a>
-							</li>
-							<li>
-								<strong style="color: var(--text-primary);">PRSN</strong> - Puerto Rico Seismic Network<br>
-								<a href="http://www.prsn.uprm.edu/" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;"><ExternalLink size={12} /> prsn.uprm.edu</a>
-							</li>
-							<li>
-								<strong style="color: var(--text-primary);">UWI SRC</strong> - Seismic Research Centre (Caribe Oriental)<br>
-								<a href="https://uwiseismic.com/" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;"><ExternalLink size={12} /> uwiseismic.com</a>
-							</li>
-							<li>
-								<strong style="color: var(--text-primary);">IPGP</strong> - Institut de Physique du Globe de Paris (Antillas Francesas)<br>
-								<a href="https://ws.ipgp.fr/" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;"><ExternalLink size={12} /> ws.ipgp.fr</a>
-							</li>
-						</ul>
-					{/if}
-					{#if manualTab === 'donations'}
-						<h3 style="color: var(--text-primary); margin-bottom: 16px; font-weight: 600; display: flex; align-items: center; gap: 6px;"><Heart size={18} /> Apoya SismoMonitor</h3>
-						<p style="margin-bottom: 16px;">SismoMonitor es un proyecto independiente mantenido por <strong>JAG-MEDIA SERVICIOS, C.A.</strong>. Si te resulta útil, considera apoyar el desarrollo y mantenimiento de la infraestructura de datos en tiempo real.</p>
-						<ul style="list-style-type: none; padding-left: 0; margin-bottom: 24px; display: flex; flex-direction: column; gap: 12px;">
-							<li>
-								<strong style="color: var(--text-primary);">PayPal</strong><br>
-								<a href="https://jagmedia.com.ve" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;"><ExternalLink size={12} /> paypal.me/jagmedia</a>
-							</li>
-							<li>
-								<strong style="color: var(--text-primary);">Ko-fi</strong><br>
-								<a href="https://jagmedia.com.ve" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;"><ExternalLink size={12} /> ko-fi.com/jagmedia</a>
-							</li>
-							<li>
-								<strong style="color: var(--text-primary);">Binance Pay / Cripto</strong><br>
-								<span style="font-family: monospace; color: var(--text-secondary); font-size: 13px; margin-top: 4px; display: inline-block;">---</span>
-							</li>
-						</ul>
-						<p style="font-size: 13px; color: var(--text-secondary);">Contacta directamente para coordinar apoyo empresarial o reportar fallos: <a href="mailto:contacto@jagmedia.com.ve" style="color: var(--accent); text-decoration: none;">contacto@jagmedia.com.ve</a></p>
 					{/if}
 				</div>
 			</div>
