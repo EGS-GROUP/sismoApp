@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sismo-backend
+    restart: unless-stopped
+    expose:
+      - "8082"
+    environment:
+      - PORT=8082
+    volumes:
+      - sismo-db:/app/data
+    networks:
+      - sismo-internal
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8082/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: sismo-frontend
+    restart: unless-stopped
+    expose:
+      - "3001"
+    environment:
+      - PORT=3001
+    networks:
+      - sismo-internal
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  nginx:
+    image: nginx:alpine
+    container_name: sismo-nginx
+    restart: unless-stopped
+    expose:
+      - "80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - sismo-internal
+      - dokploy-network
+    depends_on:
+      - frontend
+      - backend
+
+volumes:
+  sismo-db:
+    name: sismo-db-data
+
+networks:
+  sismo-internal:
+    driver: bridge
+  dokploy-network:
+    external: true
