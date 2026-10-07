@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "ve.com.jagmedia.sismo.twa",
+        "sha256_cert_fingerprints": ["19:F6:4D:B1:9A:0C:AC:5C:1D:64:AB:7E:F1:D5:F4:C7:AF:07:6C:C3:91:2B:FB:E7:1D:E5:7E:1C:A6:61:3F:C4"]
+      }
+}]

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SismoMonitor - Sin Conexión</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f1115;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        h1 { color: #facc15; }
+        p { color: #9ca3af; margin-bottom: 2rem; }
+        button {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>⚠️ Sin Conexión</h1>
+    <p>SismoMonitor requiere internet para mostrar los sismos en tiempo real.<br>Por favor, revisa tu conexión a internet.</p>
+    <button onclick="window.location.reload()">Reintentar</button>
+</body>
+</html>

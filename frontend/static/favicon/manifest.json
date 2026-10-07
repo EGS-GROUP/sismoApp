@@ -1,0 +1,40 @@
+{
+  "id": "/",
+  "name": "SismoMonitor",
+  "short_name": "SismoMonitor",
+  "description": "Monitoreo Sísmico en Tiempo Real - Centro de Control Analítico (USGS & FUNVISIS)",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#0f1115",
+  "background_color": "#0f1115",
+  "lang": "es-VE",
+  "dir": "ltr",
+  "categories": ["news", "education", "utilities"],
+  "icons": [
+    {
+      "src": "/favicon/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Ver últimos sismos",
+      "url": "/",
+      "description": "Abre el mapa con los últimos eventos sísmicos"
+    }
+  ]
+}

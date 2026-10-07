@@ -1,0 +1,47 @@
+# Build artifacts
+sismoserver
+frontend/build/
+frontend/.svelte-kit/
+frontend/node_modules/
+backend/node_modules/
+node_modules/
+
+# Runtime data
+sismos.db
+sismos.db-shm
+sismos.db-wal
+*.db
+
+# Large data files and archives
+backend/S1_Damage_Prelim_EMSR884.zip
+frontend/static/damage_sentinel1.json
+frontend/static/damage_*.json
+temp_fire/
+funvisis_history.json.migrated
+sismoApp.zip
+public/sismoApp.zip
+frontend/static/sismoApp.zip
+*.zip
+
+# Environment and secrets
+.env
+.env.*
+*.pem
+*.key
+vapid_keys*
+
+# Logs and OS files
+crash.log
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Graphify cache (regenerable). Mantener graph.json, manifest.json, graph.html y GRAPH_REPORT.md
+graphify-out/cache/
+graphify-out/.graphify_*
+graphify-out/20*-*-*/

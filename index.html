@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mantenimiento – SISMO | JAGMedia</title>
+  <meta name="description" content="El sistema SISMO de JAGMedia se encuentra en mantenimiento. Estamos actualizando la plataforma para ofrecerte una mejor experiencia." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-dark:      #080c14;
+      --bg-card:      rgba(255,255,255,0.04);
+      --accent-blue:  #2563eb;
+      --accent-cyan:  #06b6d4;
+      --accent-glow:  #38bdf8;
+      --text-primary: #f0f6ff;
+      --text-muted:   #94a3b8;
+      --border:       rgba(99,179,237,0.15);
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+
+    /* ── Background animated grid ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(37,99,235,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37,99,235,0.06) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridShift 20s linear infinite;
+    }
+    @keyframes gridShift { from { background-position: 0 0; } to { background-position: 50px 50px; } }
+
+    /* ── Ambient orbs ── */
+    .orb {
+      position: fixed; border-radius: 50%;
+      filter: blur(120px); opacity: 0.25; z-index: 0;
+      pointer-events: none;
+      animation: float 8s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 600px; height: 600px; background: #1e40af; top: -200px; left: -150px; animation-delay: 0s; }
+    .orb-2 { width: 400px; height: 400px; background: #0e7490; bottom: -100px; right: -100px; animation-delay: 3s; }
+    .orb-3 { width: 300px; height: 300px; background: #7c3aed; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 6s; }
+    @keyframes float { from { transform: translateY(0); } to { transform: translateY(-30px); } }
+
+    /* ── Main layout ── */
+    .wrapper {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+
+    /* ── Logo / Brand ── */
+    .brand {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 3rem;
+      animation: fadeDown 0.8s ease both;
+    }
+    .brand-icon {
+      width: 56px; height: 56px; border-radius: 16px;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 0 30px rgba(37,99,235,0.5);
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(37,99,235,0.4); }
+      50% { box-shadow: 0 0 50px rgba(6,182,212,0.7); }
+    }
+    .brand-text { display: flex; flex-direction: column; }
+    .brand-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem; font-weight: 900;
+      letter-spacing: 0.08em;
+      background: linear-gradient(90deg, #60a5fa, #06b6d4);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .brand-sub { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; }
+
+    /* ── Card ── */
+    .card {
+      width: 100%; max-width: 640px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      text-align: center;
+      animation: fadeUp 0.9s ease both 0.2s;
+      box-shadow: 0 0 60px rgba(37,99,235,0.08), inset 0 1px 0 rgba(255,255,255,0.07);
+    }
+
+    /* ── Seismic wave animation ── */
+    .wave-container {
+      margin: 0 auto 2rem;
+      width: 120px; height: 60px;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .wave-svg { width: 100%; height: 100%; }
+    .wave-line {
+      fill: none;
+      stroke: url(#waveGrad);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      animation: seismicWave 2.5s ease-in-out infinite;
+    }
+    @keyframes seismicWave {
+      0%   { d: path("M0,30 L20,30 L30,10 L40,50 L50,5 L60,55 L70,15 L80,45 L90,30 L110,30"); }
+      50%  { d: path("M0,30 L20,30 L30,50 L40,10 L50,55 L60,5 L70,45 L80,15 L90,30 L110,30"); }
+      100% { d: path("M0,30 L20,30 L30,10 L40,50 L50,5 L60,55 L70,15 L80,45 L90,30 L110,30"); }
+    }
+
+    /* ── Status badge ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px;
+      background: rgba(234,179,8,0.12);
+      border: 1px solid rgba(234,179,8,0.3);
+      border-radius: 999px;
+      font-size: 0.72rem; font-weight: 600;
+      color: #fbbf24; letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .badge-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #fbbf24;
+      animation: blink 1.2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+
+    /* ── Headings ── */
+    .main-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #f0f6ff 30%, #60a5fa 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+    .subtitle strong { color: var(--accent-glow); font-weight: 500; }
+
+    /* ── Divider ── */
+    .divider {
+      width: 60px; height: 3px;
+      margin: 0 auto 2rem;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+      border-radius: 999px;
+    }
+
+    /* ── Progress bar ── */
+    .progress-wrap {
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      height: 6px;
+      margin-bottom: 0.6rem;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+      width: 0%;
+      animation: progress 6s ease-in-out infinite;
+    }
+    @keyframes progress {
+      0%   { width: 0%; }
+      40%  { width: 75%; }
+      80%  { width: 92%; }
+      95%  { width: 95%; }
+      100% { width: 0%; }
+    }
+    .progress-label {
+      font-size: 0.72rem; color: var(--text-muted);
+      text-align: right; letter-spacing: 0.04em;
+    }
+
+    /* ── Info grid ── */
+    .info-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin-top: 2.5rem;
+    }
+    .info-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 1rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .info-item:hover { border-color: rgba(6,182,212,0.3); transform: translateY(-2px); }
+    .info-icon { font-size: 1.4rem; margin-bottom: 0.4rem; }
+    .info-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .info-value { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); margin-top: 2px; }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 3rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      animation: fadeUp 1s ease both 0.6s;
+    }
+    .footer a { color: var(--accent-glow); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    /* ── Keyframes ── */
+    @keyframes fadeDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeUp   { from { opacity:0; transform:translateY(20px);  } to { opacity:1; transform:translateY(0); } }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .card { padding: 2rem 1.5rem; }
+      .info-grid { grid-template-columns: 1fr; }
+      .brand { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="wrapper">
+
+    <!-- Brand -->
+    <div class="brand">
+      <div class="brand-icon">🌐</div>
+      <div class="brand-text">
+        <span class="brand-name">SISMO</span>
+        <span class="brand-sub">JAGMedia · Sistema de Gestión</span>
+      </div>
+    </div>
+
+    <!-- Main card -->
+    <div class="card">
+
+      <!-- Seismic wave -->
+      <div class="wave-container">
+        <svg class="wave-svg" viewBox="0 0 110 60" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#2563eb"/>
+              <stop offset="100%" stop-color="#06b6d4"/>
+            </linearGradient>
+          </defs>
+          <path class="wave-line" d="M0,30 L20,30 L30,10 L40,50 L50,5 L60,55 L70,15 L80,45 L90,30 L110,30"/>
+        </svg>
+      </div>
+
+      <!-- Status badge -->
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Mantenimiento en curso
+      </div>
+
+      <!-- Title -->
+      <h1 class="main-title">Estamos actualizando<br/>la plataforma</h1>
+
+      <div class="divider"></div>
+
+      <!-- Subtitle -->
+      <p class="subtitle">
+        El sitio <strong>sismo.jagmedia.com.ve</strong> se encuentra temporalmente
+        fuera de servicio mientras realizamos mejoras y actualizaciones
+        importantes en la plataforma. Volveremos pronto con una
+        experiencia mejorada.
+      </p>
+
+      <!-- Progress -->
+      <div class="progress-wrap">
+        <div class="progress-bar"></div>
+      </div>
+      <p class="progress-label">Actualizando sistema…</p>
+
+      <!-- Info grid -->
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-icon">⚙️</div>
+          <div class="info-label">Estado</div>
+          <div class="info-value">En mantenimiento</div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🔒</div>
+          <div class="info-label">Seguridad</div>
+          <div class="info-value">Actualizando</div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📡</div>
+          <div class="info-label">Plataforma</div>
+          <div class="info-value">SISMO v2.0</div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🕐</div>
+          <div class="info-label">Disponibilidad</div>
+          <div class="info-value">Próximamente</div>
+        </div>
+      </div>
+
+    </div><!-- /card -->
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>© 2026 <a href="https://jagmedia.com.ve" target="_blank" rel="noopener">JAGMedia</a> · Sistema de Información Sísmica</p>
+    </div>
+
+  </div><!-- /wrapper -->
+
+</body>
+</html>
