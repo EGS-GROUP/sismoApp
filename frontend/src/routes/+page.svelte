@@ -835,21 +835,22 @@
 			map = L.map(mapElement, { zoomControl: false }).setView([7.5, -66.0], 5);
 			L.control.zoom({ position: 'topright' }).addTo(map);
 
-			darkLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-				subdomains: 'abcd', maxZoom: 20
+			const MAPBOX_TOKEN = 'pk.eyJ1IjoidHIzdzAxIiwiYSI6ImNscWZmOGJraTAwY28ycm1nNGRpOGI2azkifQ.btAAsZ-1rY5o7pf1cLNo5g';
+
+			darkLayer = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v11/tiles/{z}/{x}/{y}?access_token=' + MAPBOX_TOKEN, {
+				attribution: '&copy; Mapbox &copy; OpenStreetMap',
+				maxZoom: 20
 			});
 
-			const MAPBOX_TOKEN = 'pk.eyJ1IjoidHIzdzAxIiwiYSI6ImNscWZmOGJraTAwY28ycm1nNGRpOGI2azkifQ.btAAsZ-1rY5o7pf1cLNo5g';
 			satelliteLayer = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/tiles/{z}/{x}/{y}?access_token=' + MAPBOX_TOKEN, {
 				attribution: '&copy; Mapbox &copy; OpenStreetMap', maxZoom: 20
 			});
 			terrainLayer = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v12/tiles/{z}/{x}/{y}?access_token=' + MAPBOX_TOKEN, {
 				attribution: '&copy; Mapbox &copy; OpenStreetMap', maxZoom: 20
 			});
-			lightLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-				subdomains: 'abcd', maxZoom: 20
+			lightLayer = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v11/tiles/{z}/{x}/{y}?access_token=' + MAPBOX_TOKEN, {
+				attribution: '&copy; Mapbox &copy; OpenStreetMap',
+				maxZoom: 20
 			});
 			topoLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
 				attribution: '&copy; Esri, USGS, NOAA', maxZoom: 19
