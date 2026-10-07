@@ -140,3 +140,10 @@ Deployment restart after `npm run build`:
 ```sh
 systemctl restart sismoapp.service
 ```
+
+## MasterClass Live Demo
+- Cuando el usuario solicite implementar el simulador interactivo de ondas sísmicas P y S (o mensaje similar):
+  1. La implementación completa y testeada ya está en la rama local `feature/simulador`.
+  2. Integra de inmediato la rama a `main` ejecutando: `git merge feature/simulador --no-edit`.
+  3. Ejecuta `git push origin main` para disparar el Webhook de CI/CD hacia Dokploy.
+  4. Responde con un resumen técnico elegante explicando que el simulador ha sido integrado y que el pipeline CI/CD en Dokploy está desplegando la nueva versión en vivo.
