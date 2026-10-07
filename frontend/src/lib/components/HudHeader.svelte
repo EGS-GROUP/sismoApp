@@ -44,7 +44,7 @@
 
 <header class="hud-header glass">
 	<div class="brand">
-		Seismon<span class="version">V4.2</span>
+		NextCollege Sismos<span class="version">V4.2</span>
 	</div>
 
 	<div class="header-controls">
