@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getMagnitudeColor } from '$lib/utils/mapUtils';
+	import { sismoState } from '$lib/sismoStore.svelte';
 	import type { Earthquake } from '$lib/types';
 
 	interface Props {
@@ -8,6 +9,16 @@
 	}
 
 	let { selectedEarthquake, onClose }: Props = $props();
+
+	function startWaveSimulation() {
+		sismoState.waveSimulation.earthquake = selectedEarthquake;
+		sismoState.waveSimulation.timeSec = 0;
+		sismoState.waveSimulation.isPlaying = true;
+		sismoState.waveSimulation.active = true;
+		if (sismoState.innerWidth <= 768) {
+			sismoState.mobileTab = 'map';
+		}
+	}
 </script>
 
 <h3 style="color: var(--text-primary); margin-top: 0; margin-bottom: 16px; font-size: 16px; text-align: center; font-weight: 800;">{selectedEarthquake.location}</h3>
@@ -47,7 +58,14 @@
 	</div>
 </div>
 
-<div style="display: flex; gap: 8px; margin-top: 16px; align-items: center;">
+<div style="margin-top: 14px; margin-bottom: 4px;">
+	<button class="btn-wave-simulation" onclick={startWaveSimulation}>
+		<span class="wave-icon-pulse">🌊</span>
+		<span>Simular Propagación de Ondas (P y S)</span>
+	</button>
+</div>
+
+<div style="display: flex; gap: 8px; margin-top: 12px; align-items: center;">
 	<a href="{selectedEarthquake.url}" target="_blank" style="flex: 1; text-align: center; text-decoration: none; font-size: 13px; font-weight: 600; padding: 10px 16px; border-radius: 4px; display: flex; align-items: center; justify-content: center; gap: 6px; background: var(--accent); color: #000; letter-spacing: 0.5px; transition: opacity 0.2s;">
 		<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
 		{selectedEarthquake.source === 'FUNVISIS' ? 'Ver Boletín Oficial' : 'Reporte Oficial'}

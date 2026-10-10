@@ -29,6 +29,8 @@
 	import MapControls from '$lib/components/MapControls.svelte';
 	import VolcanoLayer from '$lib/components/VolcanoLayer.svelte';
 	import DamageLayer from '$lib/components/DamageLayer.svelte';
+	import WaveSimulationLayer from '$lib/components/WaveSimulationLayer.svelte';
+	import WaveSimulationHud from '$lib/components/WaveSimulationHud.svelte';
 	import Modal from '$lib/components/Modal.svelte';
 	import RankingWidget from '$lib/components/RankingWidget.svelte';
 
@@ -1218,6 +1220,15 @@
 		bind:damageError={sismoState.damageError}
 		bind:damageIndexProgress={sismoState.damageIndexProgress}
 	/>
+
+	<WaveSimulationLayer {map} {L} />
+
+	<WaveSimulationHud onCenterEpicenter={() => {
+		if (map && sismoState.waveSimulation.earthquake) {
+			const [lat, lon] = sismoState.waveSimulation.earthquake.coordinates;
+			map.flyTo([lat, lon], 7, { duration: 0.8 });
+		}
+	}} />
 
 	<!-- BOTTOM PANEL: Charts + TV (inside main-area, grid row 2) -->
 	<BottomPanel

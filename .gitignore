@@ -1,5 +1,7 @@
 # Build artifacts
 sismoserver
+sismoserver.exe
+*.exe
 frontend/build/
 frontend/.svelte-kit/
 frontend/node_modules/
@@ -7,6 +9,8 @@ backend/node_modules/
 node_modules/
 
 # Runtime data
+data/
+backend/data/
 sismos.db
 sismos.db-shm
 sismos.db-wal
