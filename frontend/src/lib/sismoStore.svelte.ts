@@ -7,7 +7,8 @@ import type {
 	RankingData,
 	VolcanoAlertBannerData,
 	VolcanoProperties,
-	ModalData
+	ModalData,
+	WaveSimulationState
 } from './types';
 
 export const sismoState = $state({
@@ -79,6 +80,18 @@ export const sismoState = $state({
 
 	// Volcano alerts
 	activeVolcanoAlertBanner: null as VolcanoAlertBannerData | null,
+
+	// Wave Simulation (Ondas P & S)
+	waveSimulation: {
+		active: false,
+		earthquake: null as Earthquake | null,
+		timeSec: 0,
+		isPlaying: false,
+		pSpeed: 7.2, // km/s (Compresional P-Wave)
+		sSpeed: 3.8, // km/s (Shear S-Wave destructiva)
+		maxTimeSec: 180,
+		speedMultiplier: 1
+	} as WaveSimulationState,
 });
 
 export function getMagnitudeColor(m: number): string {

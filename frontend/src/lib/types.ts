@@ -99,3 +99,14 @@ export interface ModalData {
 	sourceLink?: string;
 	sourceText?: string;
 }
+
+export interface WaveSimulationState {
+	active: boolean;
+	earthquake: Earthquake | null;
+	timeSec: number;
+	isPlaying: boolean;
+	pSpeed: number; // km/s
+	sSpeed: number; // km/s
+	maxTimeSec: number; // max duration in seconds
+	speedMultiplier: number; // 1x, 2x, 5x
+}
