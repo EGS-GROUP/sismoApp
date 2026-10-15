@@ -7,7 +7,13 @@
 		calculateLeadTime,
 		formatTimeMMSS
 	} from '$lib/utils/seismicWaves';
-	import { Play, Pause, RotateCcw, X, Activity, ShieldAlert, FastForward, Navigation } from '@lucide/svelte';
+	import {
+		setAudioEnabled,
+		updateAudioFrame,
+		stopAudio,
+		playPWaveChirp
+	} from '$lib/utils/seismicAudio';
+	import { Play, Pause, RotateCcw, X, Activity, ShieldAlert, FastForward, Navigation, Volume2, VolumeX } from '@lucide/svelte';
 
 	interface Props {
 		onCenterEpicenter?: () => void;
@@ -17,6 +23,7 @@
 
 	let lastTimestamp = 0;
 	let animFrameId: number | null = null;
+	let isAudioOn = $state(false);
 
 	const sim = $derived(sismoState.waveSimulation);
 	const eq = $derived(sim.earthquake);
@@ -41,14 +48,19 @@
 					if (nextTime >= sismoState.waveSimulation.maxTimeSec) {
 						sismoState.waveSimulation.timeSec = sismoState.waveSimulation.maxTimeSec;
 						sismoState.waveSimulation.isPlaying = false;
+						stopAudio();
 					} else {
 						sismoState.waveSimulation.timeSec = nextTime;
+						if (isAudioOn) {
+							updateAudioFrame(nextTime, rPKm, rSKm, true, mag);
+						}
 						animFrameId = requestAnimationFrame(loop);
 					}
 				}
 			};
 			animFrameId = requestAnimationFrame(loop);
 		} else {
+			stopAudio();
 			if (animFrameId) {
 				cancelAnimationFrame(animFrameId);
 				animFrameId = null;
@@ -56,6 +68,7 @@
 		}
 
 		return () => {
+			stopAudio();
 			if (animFrameId) {
 				cancelAnimationFrame(animFrameId);
 				animFrameId = null;
@@ -63,16 +76,31 @@
 		};
 	});
 
+	function toggleAudio() {
+		isAudioOn = !isAudioOn;
+		setAudioEnabled(isAudioOn);
+		if (isAudioOn && sim.isPlaying) {
+			playPWaveChirp();
+		}
+	}
+
 	function togglePlay() {
 		if (sim.timeSec >= sim.maxTimeSec) {
 			sim.timeSec = 0;
+			if (isAudioOn) playPWaveChirp();
 		}
 		sim.isPlaying = !sim.isPlaying;
+		if (!sim.isPlaying) {
+			stopAudio();
+		} else if (isAudioOn) {
+			playPWaveChirp();
+		}
 	}
 
 	function resetSim() {
 		sim.timeSec = 0;
 		sim.isPlaying = true;
+		if (isAudioOn) playPWaveChirp();
 	}
 
 	function setSpeed(mult: number) {
@@ -80,6 +108,9 @@
 	}
 
 	function closeSim() {
+		stopAudio();
+		isAudioOn = false;
+		setAudioEnabled(false);
 		sim.active = false;
 		sim.isPlaying = false;
 		sim.timeSec = 0;
@@ -194,6 +225,15 @@
 				<button class="hud-action-btn" onclick={resetSim} title="Reiniciar a 0s">
 					<RotateCcw size={15} />
 					<span>Reiniciar</span>
+				</button>
+				<button class="hud-action-btn audio-btn {isAudioOn ? 'audio-active' : ''}" onclick={toggleAudio} title="Sonificación sísmica en tiempo real con Web Audio API">
+					{#if isAudioOn}
+						<Volume2 size={15} />
+						<span>Audio: ON</span>
+					{:else}
+						<VolumeX size={15} />
+						<span>Audio: OFF</span>
+					{/if}
 				</button>
 			</div>
 
@@ -500,6 +540,13 @@
 
 	.hud-action-btn:hover {
 		background: rgba(255, 255, 255, 0.12);
+	}
+
+	.audio-btn.audio-active {
+		background: rgba(0, 240, 255, 0.2);
+		border-color: #00f0ff;
+		color: #00f0ff;
+		box-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
 	}
 
 	.primary-btn {
